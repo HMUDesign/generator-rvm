@@ -1,0 +1,46 @@
+{
+  "name": "generator-rvm",
+  "version": "0.0.0",
+  "description": "React projects based on create-react-app, with ReactViewModel, Styled Components, Storybook, and tested with Jest.",
+  "homepage": "https://hmudesign.github.io/generator-rvm",
+  "repository": "git@github.com:hmudesign/generator-rvm.git",
+  "license": "MIT",
+  "author": {
+    "name": "Christopher Baker",
+    "email": "christopher@hmudesign.com",
+    "url": "https://www.hmudesign.com/"
+  },
+  "keywords": [
+    "react",
+    "storybook",
+    "styled-components",
+    "create-react-app",
+    "custom-react-scripts",
+    "yeoman-generator"
+  ],
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "jest"
+  },
+  "main": "generators/index.js",
+  "files": [
+    "generators"
+  ],
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "lodash": "^4.17.4",
+    "yeoman-generator": "^2.0.1",
+    "yosay": "^2.0.1"
+  },
+  "devDependencies": {
+    "yeoman-test": "^1.7.0",
+    "yeoman-assert": "^3.1.0",
+    "eslint": "^4.1.0",
+    "husky": "^0.14.3",
+    "jest": "^22.0.6"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [ "/node_modules/", "/templates/" ]
+  }
+}
