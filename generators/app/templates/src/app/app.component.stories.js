@@ -1,6 +1,6 @@
 import { storiesOf } from '<%= storybook %>';
 import { action } from '@storybook/addon-actions';
-import { text } from '@storybook/addon-knobs/react';
+import { withKnobs, text } from '@storybook/addon-knobs/react';
 
 import { ThemeProvider } from 'styled-components';
 import theme from '../themes/primary';
@@ -17,6 +17,7 @@ function addTheme(storyFn) {
 }
 
 storiesOf('AppRVM', module)
+  .addDecorator(withKnobs)
   .addDecorator(addTheme)
   .add('basic usage', () => (
     <AppRVM id={text('ID', '1')} onClick={action('clicked')} />
@@ -24,6 +25,7 @@ storiesOf('AppRVM', module)
 ;
 
 storiesOf('App', module)
+  .addDecorator(withKnobs)
   .addDecorator(addTheme)
   .add('basic usage', () => (
     <App

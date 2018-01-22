@@ -1,4 +1,4 @@
-import { storiesOf } from 'starwars/storybook';
+import { storiesOf } from '<%= storybook %>';
 import { withKnobs, text } from '@storybook/addon-knobs/react';
 
 import React from 'react';

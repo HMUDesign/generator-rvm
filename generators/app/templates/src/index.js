@@ -9,7 +9,7 @@ import App from './app';
 ReactDOM.render((
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-      <App />
+      <App id="1" />
     </ThemeProvider>
   </BrowserRouter>
 ), document.getElementById('root'));

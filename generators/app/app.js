@@ -1,46 +1,75 @@
 const Generator = require('yeoman-generator');
+const { kebabCase } = require('lodash');
+const askName = require('inquirer-npm-name');
+const path = require('path');
+const mkdirp = require('mkdirp');
+const extend = require('deep-extend');
 
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
-
-    this.argument('name', {
-      desc: 'The name of the app to generate (eg: my-cool-app).',
-      required: false,
-      type: String,
-    });
 
     this.config.defaults({
       storybook: '@storybook/react',
     });
   }
 
+  initializing() {
+    this.props = {};
+  }
+
   prompting() {
-    return this.prompt([
-      this.options.name ? null : {
-        type: 'input',
-        name: 'name',
-        message: 'Name: (eg: my-cool-app)',
-        filter: input => input.trim(),
-        validate: (input) => input ? true : 'You must provide a name.',
-      },
-    ].filter(Boolean)).then(({ name }) => {
-      this.input = {
-        name: this.options.name || name,
-        storybook: this.config.get('storybook'),
-      };
+    return askName({
+      name: 'name',
+      message: 'Your app name',
+      default: kebabCase(path.basename(process.cwd())),
+      filter: (name) => kebabCase(name),
+    }, this).then(({ name }) => {
+      this.props.name = name;
+      this.props.storybook = this.config.get('storybook');
+    });
+  }
+
+  default() {
+    if (path.basename(this.destinationPath()) !== this.props.name) {
+      mkdirp(this.props.name);
+      this.destinationRoot(this.destinationPath(this.props.name));
+    }
+
+    this.composeWith(require.resolve('generator-node/generators/app'), {
+      boilerplate: false,
+      name: this.props.name,
+      projectRoot: 'src',
+      skipInstall: this.options.skipInstall,
     });
   }
 
   writing() {
-    if (this.fs.exists(`${this.input.name}/package.json`)) {
-      throw new Error('There is already an app at this location.');
-    }
+    const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+    const appPkg = require('./templates/package.json');
 
-    this.fs.copyTpl(this.templatePath(), this.destinationPath(this.input.name), this.input);
+    extend(pkg, {
+      scripts: appPkg.scripts,
+      dependencies: appPkg.dependencies,
+      devDependencies: appPkg.devDependencies,
+    });
+
+    this.fs.copyTpl(this.templatePath(), this.destinationPath(), this.props);
+    this.fs.copyTpl(this.templatePath('.storybook'), this.destinationPath('.storybook'), this.props);
+    this.fs.copyTpl(this.templatePath('.env'), this.destinationPath('.env'), this.props);
+    this.fs.copyTpl(this.templatePath('.eslintrc.yml'), this.destinationPath('.eslintrc.yml'), this.props);
+    this.fs.writeJSON(this.destinationPath('package.json'), pkg);
   }
 
-  installing() {
-    this.npmInstall();
+  conflicts() {
+    const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+
+    delete pkg.devDependencies.jest;
+    delete pkg.eslintConfig;
+    delete pkg.jest;
+
+    this.fs.writeJSON(this.destinationPath('package.json'), pkg);
+
+    this.fs.append(this.destinationPath('.eslintignore'), 'build\n');
   }
 };

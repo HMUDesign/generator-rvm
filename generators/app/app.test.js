@@ -1,26 +1,26 @@
 const path = require('path');
-const assert = require('yeoman-assert');
+const fs = require('fs');
 const helpers = require('yeoman-test');
 
 describe('generator-rvm:app', () => {
-  it('works with argument', () => {
+  it('works', () => {
     return helpers.run(path.join(__dirname, '.'))
-      .withArguments([ 'my-app' ])
-      .then(() => {
-        assert.file([
-          'my-app/package.json',
-        ]);
+      .withPrompts({
+        name: 'my-rvm-app',
+        description: 'An RVM app.',
+        homepage: 'https://hmudesign.github.io/generator-rvm',
+        githubAccount: 'hmudesign',
+        authorName: 'Christopher Baker',
+        authorEmail: 'christopher@hmudesign.com',
+        authorUrl: 'https://www.hmudesign.com/',
+        keywords: [],
+        license: 'MIT',
       })
-    ;
-  });
-
-  it('works with prompt', () => {
-    return helpers.run(path.join(__dirname, '.'))
-      .withPrompts({ name: 'my-app' })
       .then(() => {
-        assert.file([
-          'my-app/package.json',
-        ]);
+        const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+
+        expect(pkg).toHaveProperty('name', 'my-rvm-app');
+        expect(pkg).not.toHaveProperty('jest');
       })
     ;
   });

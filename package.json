@@ -22,13 +22,20 @@
     "pretest": "eslint .",
     "test": "jest"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "main": "generators/index.js",
   "files": [
     "generators"
   ],
   "dependencies": {
     "chalk": "^2.1.0",
+    "deep-extend": "^0.5.0",
+    "generator-node": "^2.3.0",
+    "inquirer-npm-name": "^3.0.0",
     "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1",
     "yeoman-generator": "^2.0.1",
     "yosay": "^2.0.1"
   },
@@ -41,6 +48,9 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testPathIgnorePatterns": [ "/node_modules/", "/templates/" ]
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/templates/"
+    ]
   }
 }
