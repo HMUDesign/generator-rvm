@@ -23,10 +23,6 @@ rules:
   comma-dangle:
     - error
     - always-multiline
-  dot-notation:
-    - error
-    -
-      allowKeywords: true
   eqeqeq:
     - error
     - allow-null

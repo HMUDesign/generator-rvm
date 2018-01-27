@@ -1,24 +1,14 @@
 import { storiesOf } from '<%= storybook %>';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text } from '@storybook/addon-knobs/react';
-
-import { ThemeProvider } from 'styled-components';
-import theme from '../themes/primary';
+<%- dependencies.styled ? "import { withTheme } from '../themes';\n" : "" -%>
 
 import React from 'react';
 import AppRVM, { App } from './app.component';
 
-function addTheme(storyFn) {
-  return (
-    <ThemeProvider theme={theme}>
-      { storyFn() }
-    </ThemeProvider>
-  );
-}
-
 storiesOf('AppRVM', module)
   .addDecorator(withKnobs)
-  .addDecorator(addTheme)
+<%- dependencies.styled ? "  .addDecorator(withTheme)\n" : "" -%>
   .add('basic usage', () => (
     <AppRVM id={text('ID', '1')} onClick={action('clicked')} />
   ))
@@ -26,7 +16,7 @@ storiesOf('AppRVM', module)
 
 storiesOf('App', module)
   .addDecorator(withKnobs)
-  .addDecorator(addTheme)
+<%- dependencies.styled ? "  .addDecorator(withTheme)\n" : "" -%>
   .add('basic usage', () => (
     <App
       name={text('Name', 'ReactViewModel')}

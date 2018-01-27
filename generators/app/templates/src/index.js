@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import theme from './themes/primary';
+<%- dependencies.router ? "import { BrowserRouter } from 'react-router-dom';\n" : "" -%>
+<%- dependencies.styled ? "import { ThemeProvider } from 'styled-components';\n" : "" -%>
+<%- dependencies.styled ? "import theme from './themes/primary';\n" : "" -%>
 
 import App from './app';
+<% const first = dependencies.router ? "  " : ""; -%>
+<% const second = dependencies.styled ? `${first}  ` : ""; -%>
 
 ReactDOM.render((
-  <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <App id="1" />
-    </ThemeProvider>
-  </BrowserRouter>
+<%- dependencies.router ? `${first}<BrowserRouter>\n` : "" -%>
+<%- dependencies.styled ? `${second}<ThemeProvider theme={theme}>\n` : "" -%>
+<%- second || first %>  <App id="1" />
+<%- dependencies.styled ? `${second}</ThemeProvider>\n` : "" -%>
+<%- dependencies.router ? `${first}</BrowserRouter>\n` : "" -%>
 ), document.getElementById('root'));

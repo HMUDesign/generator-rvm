@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ViewModel from './app.viewmodel';
-import { Container } from './app.styled';
+<%- dependencies.styled ? "import { Container } from './app.styled';\n" : "" -%>
 
 export class App extends Component {
   static propTypes = {
@@ -19,9 +19,9 @@ export class App extends Component {
     const { name, onClick } = this.props;
 
     return (
-      <Container onClick={onClick}>
+      <<%= dependencies.styled ? "Container" : "div" %> onClick={onClick}>
         {name}
-      </Container>
+      </<%= dependencies.styled ? "Container" : "div" %>>
     );
   }
 }

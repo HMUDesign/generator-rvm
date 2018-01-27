@@ -27,15 +27,11 @@
   },
   "main": "generators/index.js",
   "files": [
-    "generators"
+    "generators",
+    "lib"
   ],
   "dependencies": {
     "chalk": "^2.1.0",
-    "deep-extend": "^0.5.0",
-    "generator-node": "^2.3.0",
-    "inquirer-npm-name": "^3.0.0",
-    "lodash": "^4.17.4",
-    "mkdirp": "^0.5.1",
     "yeoman-generator": "^2.0.1",
     "yosay": "^2.0.1"
   },
@@ -43,7 +39,6 @@
     "yeoman-test": "^1.7.0",
     "yeoman-assert": "^3.1.0",
     "eslint": "^4.1.0",
-    "husky": "^0.14.3",
     "jest": "^22.0.6"
   },
   "jest": {

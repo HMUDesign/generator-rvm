@@ -6,6 +6,9 @@ describe('App/ViewModel', () => {
     const viewModel = new ViewModel({ id: '1' });
 
     expect(viewModel.name).toBe('ReactViewModel (1)');
+
+    viewModel.id = 2;
+    expect(viewModel.name).toBe('ReactViewModel (2)');
   });
 
 });
