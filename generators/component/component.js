@@ -55,7 +55,7 @@ module.exports = class extends Generator {
         storybook: this.config.get('storybook'),
         pathPrefix: location || 'src/components',
         displayPrefix: location
-          ? location.replace('/src/', '').split('/').map(upperFirst).join('/')
+          ? location.replace('src/', '').split('/').map(upperFirst).join('/')
           : 'Components'
         ,
       };
