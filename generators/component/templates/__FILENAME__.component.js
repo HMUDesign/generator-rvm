@@ -1,29 +1,27 @@
-import { connect } from 'react-view-model';
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-import ViewModel from './<%= fileName %>.viewmodel';
-import { Container } from './<%= fileName %>.styled';
+<%- makeStyled ? `import { Container } from './${fileName}.styled';
 
+` : "" -%>
 export class <%= componentName %> extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
   }
-
+<%- makeViewModel ? `
   static rvmTypes = {
     id: PropTypes.string.isRequired,
   }
+` : "" -%>
 
   render() {
     const { name, onClick } = this.props;
 
     return (
-      <Container onClick={onClick}>
+      <<%= makeStyled ? "Container" : "div" %> onClick={onClick}>
         {name}
-      </Container>
+      </<%= makeStyled ? "Container" : "div" %>>
     );
   }
 }
-
-export default connect(ViewModel)(<%= componentName %>);

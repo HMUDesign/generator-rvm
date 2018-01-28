@@ -1,17 +1,19 @@
 const Generator = require('yeoman-generator');
 const { camelCase, upperFirst } = require('lodash');
+const getDependencies = require('../../lib/dependencies');
+const getFiles = require('../../lib/files');
 
-const files = {
-  component: '__FILENAME__.component.js',
-  componentStories: '__FILENAME__.component.stories.js',
-  componentTest: '__FILENAME__.component.test.js',
-  styled: '__FILENAME__.styled.js',
-  styledStories: '__FILENAME__.styled.stories.js',
-  viewmodel: '__FILENAME__.viewmodel.js',
-  viewmodelTest: '__FILENAME__.viewmodel.test.js',
-  index: 'index.js',
-  readme: 'README.md',
-};
+const allFiles = [
+  { file: '__FILENAME__.component.js', requirements: [ 'makeComponent' ] },
+  { file: '__FILENAME__.component.stories.js', requirements: [ 'makeComponent', 'storybook' ] },
+  { file: '__FILENAME__.component.test.js', requirements: [ 'makeComponent', 'jest' ] },
+  { file: '__FILENAME__.styled.js', requirements: [ 'makeStyled' ] },
+  { file: '__FILENAME__.styled.stories.js', requirements: [ 'makeStyled', 'storybook' ] },
+  { file: '__FILENAME__.viewmodel.js', requirements: [ 'makeViewModel' ] },
+  { file: '__FILENAME__.viewmodel.test.js', requirements: [ 'makeViewModel', 'jest' ] },
+  { file: 'index.js' },
+  { file: 'README.md' },
+];
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -23,8 +25,19 @@ module.exports = class extends Generator {
       type: String,
     });
 
-    this.config.defaults({
-      storybook: '@storybook/react',
+    this.option('component', {
+      desc: 'Generate a React Component?',
+      type: Boolean,
+    });
+
+    this.option('viewmodel', {
+      desc: 'Generate a ViewModel?',
+      type: Boolean,
+    });
+
+    this.option('styled', {
+      desc: 'Generate a Styled component?',
+      type: Boolean,
     });
   }
 
@@ -43,16 +56,38 @@ module.exports = class extends Generator {
         message: 'Description:',
         filter: input => input.trim(),
       },
-    ].filter(Boolean)).then(({ fileName, description }) => {
-      fileName = this.options.fileName || fileName;
+      typeof this.options.component === 'boolean' ? null : {
+        type: 'confirm',
+        name: 'makeComponent',
+        message: 'Generate a React component?',
+        default: true,
+      },
+      typeof this.options.viewmodel === 'boolean' ? null : {
+        type: 'confirm',
+        name: 'makeViewModel',
+        message: 'Generate a ViewModel?',
+        default: true,
+      },
+      typeof this.options.styled === 'boolean' ? null : {
+        type: 'confirm',
+        name: 'makeStyled',
+        message: 'Generate a Styled component?',
+        default: true,
+      },
+    ].filter(Boolean)).then(({ fileName, description, makeComponent, makeViewModel, makeStyled }) => {
 
+      fileName = this.options.fileName || fileName;
       const location = this.contextRoot.replace(this.destinationRoot(), '').slice(1);
 
       this.input = {
         fileName: fileName,
         componentName: upperFirst(camelCase(fileName)),
         description,
-        storybook: this.config.get('storybook'),
+        makeComponent: typeof this.options.component === 'boolean' ? this.options.component : makeComponent,
+        makeViewModel: typeof this.options.viewmodel === 'boolean' ? this.options.viewmodel : makeViewModel,
+        makeStyled: typeof this.options.styled === 'boolean' ? this.options.styled : makeStyled,
+
+        storybook: this.config.get('storybook') || '@storybook/react',
         pathPrefix: location || 'src/components',
         displayPrefix: location
           ? location.replace('src/', '').split('/').map(upperFirst).join('/')
@@ -71,12 +106,15 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    if (this.fs.exists(this._getOutputFilename(files.component))) {
-      throw new Error(`There is already a component called ${this.input.fileName}.`);
-    }
+    const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
-    for (const file in files) {
-      const source = files[file];
+    const dependencies = getDependencies(pkg);
+    dependencies.makeComponent = this.input.makeComponent;
+    dependencies.makeViewModel = this.input.makeViewModel;
+    dependencies.makeStyled = this.input.makeStyled;
+
+    const files = getFiles(dependencies, allFiles);
+    for (const source of files) {
       const target = this._getOutputFilename(source);
 
       if (this.fs.exists(target)) {

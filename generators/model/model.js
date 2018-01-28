@@ -1,10 +1,12 @@
 const Generator = require('yeoman-generator');
 const { camelCase, upperFirst } = require('lodash');
+const getDependencies = require('../../lib/dependencies');
+const getFiles = require('../../lib/files');
 
-const files = {
-  model: '__FILENAME__.js',
-  modelTest: '__FILENAME__.test.js',
-};
+const allFiles = [
+  { file: '__FILENAME__.js' },
+  { file: '__FILENAME__.test.js', requirements: [ 'jest' ] },
+];
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -44,13 +46,12 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    if ( this.fs.exists(this._getOutputFilename(files.model))
-      || this.fs.exists(this._getOutputFilename(files.modelTest))) {
-      throw new Error(`There is already a model called ${this.input.fileName}.`);
-    }
+    const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
-    for (const file in files) {
-      const source = files[file];
+    const dependencies = getDependencies(pkg);
+
+    const files = getFiles(dependencies, allFiles);
+    for (const source of files) {
       const target = this._getOutputFilename(source);
 
       if (this.fs.exists(target)) {
