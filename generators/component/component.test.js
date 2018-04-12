@@ -4,11 +4,15 @@ const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
 const packageJSON = JSON.stringify({
+  name: 'my-app',
   dependencies: {
     'react-router-dom': 'react-router-dom',
     '@storybook/react': '@storybook/react',
     'styled-components': 'styled-components',
     'jest': 'jest',
+    'less': 'less',
+    'steal': 'steal',
+    'documentjs': 'documentjs',
   },
 });
 
@@ -29,6 +33,9 @@ describe('generator-rvm:component', () => {
           'src/components/foo-bar/foo-bar.component.js',
           'src/components/foo-bar/foo-bar.component.stories.js',
           'src/components/foo-bar/foo-bar.component.test.js',
+          'src/components/foo-bar/foo-bar.html',
+          'src/components/foo-bar/foo-bar.less',
+          'src/components/foo-bar/foo-bar.md',
           'src/components/foo-bar/foo-bar.styled.js',
           'src/components/foo-bar/foo-bar.styled.stories.js',
           'src/components/foo-bar/foo-bar.viewmodel.js',
@@ -56,6 +63,9 @@ describe('generator-rvm:component', () => {
           'src/components/foo-bar/foo-bar.component.js',
           'src/components/foo-bar/foo-bar.component.stories.js',
           'src/components/foo-bar/foo-bar.component.test.js',
+          'src/components/foo-bar/foo-bar.html',
+          'src/components/foo-bar/foo-bar.less',
+          'src/components/foo-bar/foo-bar.md',
           'src/components/foo-bar/foo-bar.styled.js',
           'src/components/foo-bar/foo-bar.styled.stories.js',
           'src/components/foo-bar/foo-bar.viewmodel.js',

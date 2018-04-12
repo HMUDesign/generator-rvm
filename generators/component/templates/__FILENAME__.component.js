@@ -14,7 +14,7 @@ export class <%= componentName %> extends Component {
     const { name, onClick } = this.props;
 
     return (
-      <<%= makeStyled ? "Container" : "div" %> onClick={onClick}>
+      <<%= makeStyled ? "Container" : "div" %><%- dependencies.less ? ` className="${fileName}"` : "" -%> onClick={onClick}>
         {name}
       </<%= makeStyled ? "Container" : "div" %>>
     );

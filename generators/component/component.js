@@ -6,11 +6,14 @@ const getFiles = require('../../lib/files');
 const allFiles = [
   { file: '__FILENAME__.component.js', requirements: [ 'makeComponent' ] },
   { file: '__FILENAME__.component.stories.js', requirements: [ 'makeComponent', 'storybook' ] },
-  { file: '__FILENAME__.component.test.js', requirements: [ 'makeComponent', 'jest' ] },
+  { file: '__FILENAME__.component.test.js', requirements: [ 'makeComponent', 'test' ] },
   { file: '__FILENAME__.styled.js', requirements: [ 'makeStyled' ] },
   { file: '__FILENAME__.styled.stories.js', requirements: [ 'makeStyled', 'storybook' ] },
   { file: '__FILENAME__.viewmodel.js', requirements: [ 'makeViewModel' ] },
-  { file: '__FILENAME__.viewmodel.test.js', requirements: [ 'makeViewModel', 'jest' ] },
+  { file: '__FILENAME__.viewmodel.test.js', requirements: [ 'makeViewModel', 'test' ] },
+  { file: '__FILENAME__.html', requirements: [ 'steal' ] },
+  { file: '__FILENAME__.less', requirements: [ 'less' ] },
+  { file: '__FILENAME__.md', requirements: [ 'documentjs' ] },
   { file: 'README.md', requirements: [ 'storybook' ] },
   { file: 'index.js' },
 ];
@@ -75,7 +78,6 @@ module.exports = class extends Generator {
         default: true,
       },
     ].filter(Boolean)).then(({ fileName, description, makeComponent, makeViewModel, makeStyled }) => {
-
       fileName = this.options.fileName || fileName;
       const location = this.contextRoot.replace(this.destinationRoot(), '').slice(1);
 
@@ -107,11 +109,17 @@ module.exports = class extends Generator {
 
   writing() {
     const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
+    const app = pkg.name;
 
     const dependencies = getDependencies(pkg);
     dependencies.makeComponent = this.input.makeComponent;
     dependencies.makeViewModel = this.input.makeViewModel;
     dependencies.makeStyled = this.input.makeStyled;
+
+    const data = Object.assign({
+      app,
+      dependencies,
+    }, this.input);
 
     const files = getFiles(dependencies, allFiles);
     for (const source of files) {
@@ -121,7 +129,7 @@ module.exports = class extends Generator {
         continue;
       }
 
-      this.fs.copyTpl(this.templatePath(source), this.destinationPath(target), this.input);
+      this.fs.copyTpl(this.templatePath(source), this.destinationPath(target), data);
     }
   }
 };
