@@ -9,11 +9,6 @@ export class <%= componentName %> extends Component {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,
   }
-<%- makeViewModel ? `
-  static rvmTypes = {
-    id: PropTypes.string.isRequired,
-  }
-` : "" -%>
 
   render() {
     const { name, onClick } = this.props;

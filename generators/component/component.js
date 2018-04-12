@@ -11,8 +11,8 @@ const allFiles = [
   { file: '__FILENAME__.styled.stories.js', requirements: [ 'makeStyled', 'storybook' ] },
   { file: '__FILENAME__.viewmodel.js', requirements: [ 'makeViewModel' ] },
   { file: '__FILENAME__.viewmodel.test.js', requirements: [ 'makeViewModel', 'jest' ] },
+  { file: 'README.md', requirements: [ 'storybook' ] },
   { file: 'index.js' },
-  { file: 'README.md' },
 ];
 
 module.exports = class extends Generator {
