@@ -19,15 +19,17 @@ describe('${displayPrefix}/${componentName}/ViewModel', () => {
 
 import ViewModel from './${fileName}.viewmodel';
 
-QUnit.module('${displayPrefix}/${componentName}/ViewModel');
+QUnit.module('${displayPrefix}/${componentName}/ViewModel', () => {
 
-QUnit.test('works', () => {
-  const viewModel = new ViewModel({ id: '1' });
+  QUnit.test('works', (assert) => {
+    const viewModel = new ViewModel({ id: '1' });
 
-  QUnit.ok(vm instanceof ViewModel);
-  QUnit.ok(viewModel.name === 'ReactViewModel (1)');
+    assert.ok(vm instanceof ViewModel);
+    assert.ok(viewModel.name === 'ReactViewModel (1)');
 
-  viewModel.id = 2;
-  QUnit.ok(viewModel.name === 'ReactViewModel (2)');
+    viewModel.id = 2;
+    assert.ok(viewModel.name === 'ReactViewModel (2)');
+  });
+
 });
 ` : '' -%>

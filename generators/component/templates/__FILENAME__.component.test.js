@@ -2,7 +2,7 @@
 `import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ${componentName} } from './${fileName}.component';
+import ${componentName} from './${fileName}.component';
 
 describe('${displayPrefix}/${componentName}', () => {
 
@@ -25,21 +25,23 @@ describe('${displayPrefix}/${componentName}', () => {
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ${componentName} } from './${fileName}.component';
+import ${componentName} from './${fileName}.component';
 
-QUnit.module('${displayPrefix}/${componentName}');
+QUnit.module('${displayPrefix}/${componentName}', () => {
 
-QUnit.test('works', () => {
-  const div = document.createElement('div');
+  QUnit.test('works', (assert) => {
+    const div = document.createElement('div');
 
-  const instance = ReactDOM.render((
-    <${componentName}
-      name="ReactViewModel"
-    />
-  ), div);
+    const instance = ReactDOM.render((
+      <${componentName}
+        name="ReactViewModel"
+      />
+    ), div);
 
-  assert.ok(instance);
+    assert.ok(instance);
 
-  ReactDOM.unmountComponentAtNode(div);
+    ReactDOM.unmountComponentAtNode(div);
+  });
+
 });
 ` : '' -%>

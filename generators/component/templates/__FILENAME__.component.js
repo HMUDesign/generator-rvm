@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 <%- makeStyled ? `import { Container } from './${fileName}.styled';
 
 ` : "" -%>
-export class <%= componentName %> extends Component {
+export default class <%= componentName %> extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func,

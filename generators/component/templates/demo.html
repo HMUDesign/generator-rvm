@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <title><%= componentName %> Demo</title>
-<script src="<%= `${pathPrefix.split('/').concat('').map(v => '..').join('/')}` %>/node_modules/steal/steal.js" main="@empty"></script>
+<script
+  src="<%= `${pathPrefix.split('/').concat('').map(v => '..').join('/')}` %>/node_modules/steal/steal.js"
+  main="@empty"
+></script>
 <script type="text/steal-module">
   import React from 'react';
   import ReactDOM from 'react-dom';
