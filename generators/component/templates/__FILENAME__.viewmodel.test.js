@@ -24,7 +24,7 @@ QUnit.module('${displayPrefix}/${componentName}/ViewModel', () => {
   QUnit.test('works', (assert) => {
     const viewModel = new ViewModel({ id: '1' });
 
-    assert.ok(vm instanceof ViewModel);
+    assert.ok(viewModel instanceof ViewModel);
     assert.ok(viewModel.name === 'ReactViewModel (1)');
 
     viewModel.id = 2;
