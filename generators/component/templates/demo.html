@@ -6,14 +6,14 @@
 ></script>
 <script type="text/steal-module">
   import React from 'react';
-  import ReactDOM from 'react-dom';
+  <%- renderDemo ? `import { render } from '${renderDemo}';` : `import ReactDOM from 'react-dom';` %>
 
   import <%= componentName %> from '<%= pathPrefix.replace('src', '~') %>/<%= fileName %>';
-
+<%- renderDemo ? '' : `
   const container = document.createElement('div');
   document.body.appendChild(container);
-
-  ReactDOM.render((
+` %>
+  <%- renderDemo ? 'render(' : 'ReactDOM.render((' %>
     <<%= componentName %> id="id" name="name" />
-  ), container);
+  <%- renderDemo ? ');' : '), container);' %>
 </script>

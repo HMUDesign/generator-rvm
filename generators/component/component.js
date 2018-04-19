@@ -91,6 +91,9 @@ module.exports = class extends Generator {
         makeStyled: typeof this.options.styled === 'boolean' ? this.options.styled : makeStyled,
 
         storybook: this.config.get('storybook') || '@storybook/react',
+        renderDemo: this.config.get('render-demo'),
+        renderTest: this.config.get('render-test'),
+
         pathPrefix: location || 'src/components',
         displayPrefix: location
           ? location.replace('src/', '').split('/').map(upperFirst).join('/')

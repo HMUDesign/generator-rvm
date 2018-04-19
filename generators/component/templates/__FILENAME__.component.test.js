@@ -1,21 +1,21 @@
 <%- dependencies.jest ?
 `import React from 'react';
-import ReactDOM from 'react-dom';
+${renderTest ? `import { render } from '${renderTest}';` : `import ReactDOM from 'react-dom';`}
 
 import ${componentName} from './${fileName}.component';
 
 describe('${displayPrefix}/${componentName}', () => {
 
-  it('works', () => {
+  it('works', () => {${renderTest ? '' : `
     const div = document.createElement('div');
-
-    ReactDOM.render((
+`}
+    ${renderTest ? 'render(' : 'ReactDOM.render(('}
       <${componentName}
         name="ReactViewModel"
       />
-    ), div);
+    ${renderTest ? ');' : `), div);
 
-    ReactDOM.unmountComponentAtNode(div);
+    ReactDOM.unmountComponentAtNode(div);`}
   });
 
 });
@@ -23,24 +23,24 @@ describe('${displayPrefix}/${componentName}', () => {
 <%- dependencies.qunit ?
 `import QUnit from '${dependencies.steal ? 'steal-qunit' : 'qunit'}';
 import React from 'react';
-import ReactDOM from 'react-dom';
+${renderTest ? `import { render } from '${renderTest}';` : `import ReactDOM from 'react-dom';`}
 
 import ${componentName} from './${fileName}.component';
 
 QUnit.module('${displayPrefix}/${componentName}', () => {
 
-  QUnit.test('works', (assert) => {
+  QUnit.test('works', (assert) => {${renderTest ? '' : `
     const div = document.createElement('div');
-
-    const instance = ReactDOM.render((
+`}
+    const instance = ${renderTest ? 'render(' : 'ReactDOM.render(('}
       <${componentName}
         name="ReactViewModel"
       />
-    ), div);
+    ${renderTest ? ');' : `), div);`}
 
-    assert.ok(instance);
+    assert.ok(instance);${renderTest ? '' : `
 
-    ReactDOM.unmountComponentAtNode(div);
+    ReactDOM.unmountComponentAtNode(div);`}
   });
 
 });

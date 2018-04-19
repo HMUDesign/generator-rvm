@@ -1,10 +1,10 @@
 <%- dependencies.jest ?
-`import ViewModel from './${fileName}.viewmodel';
+`import ${componentName}ViewModel from './${fileName}.viewmodel';
 
-describe('${displayPrefix}/${componentName}/ViewModel', () => {
+describe('${displayPrefix}/${componentName} ViewModel', () => {
 
   it('provides name', async () => {
-    const viewModel = new ViewModel({ id: '1' });
+    const viewModel = new ${componentName}ViewModel({ id: '1' });
 
     expect(viewModel.name).toBe('ReactViewModel (1)');
 
@@ -17,14 +17,14 @@ describe('${displayPrefix}/${componentName}/ViewModel', () => {
 <%- dependencies.qunit ?
 `import QUnit from '${dependencies.steal ? 'steal-qunit' : 'qunit'}';
 
-import ViewModel from './${fileName}.viewmodel';
+import ${componentName}ViewModel from './${fileName}.viewmodel';
 
-QUnit.module('${displayPrefix}/${componentName}/ViewModel', () => {
+QUnit.module('${displayPrefix}/${componentName} ViewModel', () => {
 
   QUnit.test('works', (assert) => {
-    const viewModel = new ViewModel({ id: '1' });
+    const viewModel = new ${componentName}ViewModel({ id: '1' });
 
-    assert.ok(viewModel instanceof ViewModel);
+    assert.ok(viewModel instanceof ${componentName}ViewModel);
     assert.ok(viewModel.name === 'ReactViewModel (1)');
 
     viewModel.id = 2;

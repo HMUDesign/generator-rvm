@@ -5,7 +5,7 @@ import ViewModel from './${fileName}.viewmodel';
 import Component from './${fileName}.component';
 export default connect(ViewModel)(Component);
 
-export * from './${fileName}.component
+export * from './${fileName}.component';
 ` : '' -%>
 <%- makeComponent && !makeViewModel ?
 `import Component from './${fileName}.component';
