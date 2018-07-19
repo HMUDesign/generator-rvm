@@ -1,3 +1,3 @@
-import App from './app.component';
-export * from './app.component';
+import App from './app.view';
+export * from './app.view';
 export default App;

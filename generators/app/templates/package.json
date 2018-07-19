@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "can-observation": "^4.0.0-pre.27",
-    "can-observe": "^2.0.0-pre.22",
-    "react-view-model": "^2.0.0-pre.3"
+    "ylem": "^2.1.0"
   }
 }

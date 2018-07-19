@@ -1,9 +1,9 @@
 {
-  "name": "generator-rvm",
+  "name": "generator-ylem",
   "version": "0.0.0",
   "description": "React projects based on create-react-app, with ReactViewModel, Styled Components, Storybook, and tested with Jest.",
-  "homepage": "https://hmudesign.github.io/generator-rvm",
-  "repository": "git@github.com:hmudesign/generator-rvm.git",
+  "homepage": "https://hmudesign.github.io/generator-ylem",
+  "repository": "git@github.com:hmudesign/generator-ylem.git",
   "license": "MIT",
   "author": {
     "name": "Christopher Baker",
@@ -36,10 +36,10 @@
     "yosay": "^2.0.1"
   },
   "devDependencies": {
-    "yeoman-test": "^1.7.0",
+    "eslint": "^5.1.0",
+    "jest": "^23.4.1",
     "yeoman-assert": "^3.1.0",
-    "eslint": "^4.1.0",
-    "jest": "^22.0.6"
+    "yeoman-test": "^1.7.0"
   },
   "jest": {
     "testEnvironment": "node",

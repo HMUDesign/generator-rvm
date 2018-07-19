@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { App } from './app.component';
+import { App } from './app.view';
 
 describe('App', () => {
 
@@ -9,7 +9,7 @@ describe('App', () => {
     const div = document.createElement('div');
     ReactDOM.render((
       <App
-        name="ReactViewModel"
+        name="Ylem"
       />
     ), div);
     ReactDOM.unmountComponentAtNode(div);

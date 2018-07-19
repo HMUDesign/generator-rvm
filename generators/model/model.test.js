@@ -6,13 +6,12 @@ const helpers = require('yeoman-test');
 const packageJSON = JSON.stringify({
   dependencies: {
     'react-router-dom': 'react-router-dom',
-    '@storybook/react': '@storybook/react',
     'styled-components': 'styled-components',
     'jest': 'jest',
   },
 });
 
-describe('generator-rvm:model', () => {
+describe('generator-ylem:model', () => {
   it('works with argument', () => {
     return helpers.run(path.join(__dirname, '.'))
       .inTmpDir((dirname) => {

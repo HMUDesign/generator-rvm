@@ -1,19 +1,19 @@
-# generator-rvm [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-ylem [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > React projects based on create-react-app, with ReactViewModel, Styled Components, Storybook, and tested with Jest.
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-rvm using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-ylem using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
-npm install -g generator-rvm
+npm install -g generator-ylem
 ```
 
 Then generate your new project:
 
 ```bash
-yo rvm
+yo ylem
 ```
 
 ## Getting To Know Yeoman
@@ -28,9 +28,9 @@ yo rvm
 MIT © [Christopher Baker](https://www.hmudesign.com/)
 
 
-[npm-image]: https://badge.fury.io/js/generator-rvm.svg
-[npm-url]: https://npmjs.org/package/generator-rvm
-[travis-image]: https://travis-ci.org/christopherjbaker/generator-rvm.svg?branch=master
-[travis-url]: https://travis-ci.org/christopherjbaker/generator-rvm
-[daviddm-image]: https://david-dm.org/christopherjbaker/generator-rvm.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/christopherjbaker/generator-rvm
+[npm-image]: https://badge.fury.io/js/generator-ylem.svg
+[npm-url]: https://npmjs.org/package/generator-ylem
+[travis-image]: https://travis-ci.org/christopherjbaker/generator-ylem.svg?branch=master
+[travis-url]: https://travis-ci.org/christopherjbaker/generator-ylem
+[daviddm-image]: https://david-dm.org/christopherjbaker/generator-ylem.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/christopherjbaker/generator-ylem

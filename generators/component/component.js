@@ -4,19 +4,22 @@ const getDependencies = require('../../lib/dependencies');
 const getFiles = require('../../lib/files');
 
 const allFiles = [
-  { file: '__FILENAME__.component.js', requirements: [ 'makeComponent' ] },
-  { file: '__FILENAME__.component.stories.js', requirements: [ 'makeComponent', 'storybook' ] },
-  { file: '__FILENAME__.component.test.js', requirements: [ 'makeComponent', 'test' ] },
-  { file: '__FILENAME__.styled.js', requirements: [ 'makeStyled', 'styled' ] },
-  { file: '__FILENAME__.styled.stories.js', requirements: [ 'makeStyled', 'styled', 'storybook' ] },
-  { file: '__FILENAME__.viewmodel.js', requirements: [ 'makeViewModel' ] },
-  { file: '__FILENAME__.viewmodel.test.js', requirements: [ 'makeViewModel', 'test' ] },
   { file: '__FILENAME__.less', requirements: [ 'less' ] },
+  { file: '__FILENAME__.store.js', requirements: [ 'makeStore' ] },
+  { file: '__FILENAME__.store.test.jest.js', requirements: [ 'makeStore', 'jest' ] },
+  { file: '__FILENAME__.store.test.qunit.js', requirements: [ 'makeStore', 'qunit' ] },
+  { file: '__FILENAME__.styled.js', requirements: [ 'makeStyled', 'styled' ] },
+  { file: '__FILENAME__.view.js', requirements: [ 'makeView' ] },
+  { file: '__FILENAME__.view.test.jest.js', requirements: [ 'makeView', 'jest' ] },
+  { file: '__FILENAME__.view.test.qunit.js', requirements: [ 'makeView', 'qunit' ] },
   { file: 'demo.html', requirements: [ 'steal' ] },
-  { file: 'README.md', requirements: [ 'readme' ] },
-  { file: 'test.html', requirements: [ 'steal', 'test' ] },
-  { file: 'test.js', requirements: [ 'steal', 'test' ] },
-  { file: 'index.js' },
+  { file: 'index.connected.js' },
+  { file: 'index.plain.js' },
+  { file: 'index.styled.js' },
+  { file: 'README.documentjs.md', requirements: [ 'readme' ] },
+  { file: 'README.plain.md', requirements: [ 'readme' ] },
+  { file: 'test.html', requirements: [ 'steal', 'qunit' ] },
+  { file: 'test.js', requirements: [ 'steal', 'qunit' ] },
 ];
 
 module.exports = class extends Generator {
@@ -29,18 +32,23 @@ module.exports = class extends Generator {
       type: String,
     });
 
-    this.option('component', {
-      desc: 'Generate a React Component?',
+    this.option('description', {
+      desc: 'Specify a description',
+      type: String,
+    });
+
+    this.option('view', {
+      desc: 'Generate a View',
       type: Boolean,
     });
 
-    this.option('viewmodel', {
-      desc: 'Generate a ViewModel?',
+    this.option('store', {
+      desc: 'Generate a Store',
       type: Boolean,
     });
 
     this.option('styled', {
-      desc: 'Generate a Styled component?',
+      desc: 'Generate a Styled component',
       type: Boolean,
     });
   }
@@ -54,22 +62,22 @@ module.exports = class extends Generator {
         filter: input => input.trim(),
         validate: (input) => input ? true : 'You must provide a name.',
       },
-      {
+      this.options.description === 'false' ? null : {
         type: 'input',
         name: 'description',
         message: 'Description:',
         filter: input => input.trim(),
       },
-      typeof this.options.component === 'boolean' ? null : {
+      typeof this.options.view === 'boolean' ? null : {
         type: 'confirm',
-        name: 'makeComponent',
-        message: 'Generate a React component?',
+        name: 'makeView',
+        message: 'Generate a View?',
         default: true,
       },
-      typeof this.options.viewmodel === 'boolean' ? null : {
+      typeof this.options.store === 'boolean' ? null : {
         type: 'confirm',
-        name: 'makeViewModel',
-        message: 'Generate a ViewModel?',
+        name: 'makeStore',
+        message: 'Generate a Store?',
         default: true,
       },
       typeof this.options.styled === 'boolean' ? null : {
@@ -78,7 +86,7 @@ module.exports = class extends Generator {
         message: 'Generate a Styled component?',
         default: true,
       },
-    ].filter(Boolean)).then(({ fileName, description, makeComponent, makeViewModel, makeStyled }) => {
+    ].filter(Boolean)).then(({ fileName, description, makeView, makeStore, makeStyled }) => {
       fileName = this.options.fileName || fileName;
       const location = this.contextRoot.replace(this.destinationRoot(), '').slice(1);
 
@@ -86,11 +94,10 @@ module.exports = class extends Generator {
         fileName: fileName,
         componentName: upperFirst(camelCase(fileName)),
         description,
-        makeComponent: typeof this.options.component === 'boolean' ? this.options.component : makeComponent,
-        makeViewModel: typeof this.options.viewmodel === 'boolean' ? this.options.viewmodel : makeViewModel,
+        makeView: typeof this.options.view === 'boolean' ? this.options.view : makeView,
+        makeStore: typeof this.options.store === 'boolean' ? this.options.store : makeStore,
         makeStyled: typeof this.options.styled === 'boolean' ? this.options.styled : makeStyled,
 
-        storybook: this.config.get('storybook') || '@storybook/react',
         renderDemo: this.config.get('render-demo'),
         renderTest: this.config.get('render-test'),
 
@@ -103,11 +110,11 @@ module.exports = class extends Generator {
     });
   }
 
-  _getOutputFilename(filename) {
+  _getOutputFilename(fileName) {
     return [
       this.input.pathPrefix,
       this.input.fileName,
-      filename.replace('__FILENAME__', this.input.fileName),
+      fileName.replace('__FILENAME__', this.input.fileName),
     ].join('/');
   }
 
@@ -116,8 +123,8 @@ module.exports = class extends Generator {
     const app = pkg.name;
 
     const dependencies = getDependencies(pkg);
-    dependencies.makeComponent = this.input.makeComponent;
-    dependencies.makeViewModel = this.input.makeViewModel;
+    dependencies.makeView = this.input.makeView;
+    dependencies.makeStore = this.input.makeStore;
     dependencies.makeStyled = this.input.makeStyled;
 
     const data = Object.assign({

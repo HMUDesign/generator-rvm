@@ -5,7 +5,8 @@ const getFiles = require('../../lib/files');
 
 const allFiles = [
   { file: '__FILENAME__.js' },
-  { file: '__FILENAME__.test.js', requirements: [ 'jest' ] },
+  { file: '__FILENAME__.test.jest.js', requirements: [ 'jest' ] },
+  { file: '__FILENAME__.test.qunit.js', requirements: [ 'qunit' ] },
 ];
 
 module.exports = class extends Generator {
@@ -38,10 +39,10 @@ module.exports = class extends Generator {
     });
   }
 
-  _getOutputFilename(filename) {
+  _getOutputFilename(fileName) {
     return [
       'src/models',
-      filename.replace('__FILENAME__', this.input.fileName),
+      fileName.replace('__FILENAME__', this.input.fileName),
     ].join('/');
   }
 

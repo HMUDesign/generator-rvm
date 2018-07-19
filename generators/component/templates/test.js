@@ -1,2 +1,2 @@
-<%- makeComponent ? `import './${fileName}.component.test';\n` : '' -%>
-<%- makeViewModel ? `import './${fileName}.viewmodel.test';\n` : '' -%>
+<%- makeComponent ? `import './${fileName}.view.test';\n` : '' -%>
+<%- makeStore ? `import './${fileName}.store.test';\n` : '' -%>

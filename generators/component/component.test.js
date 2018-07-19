@@ -7,7 +7,6 @@ const packageJSON = JSON.stringify({
   name: 'my-app',
   dependencies: {
     'react-router-dom': 'react-router-dom',
-    '@storybook/react': '@storybook/react',
     'styled-components': 'styled-components',
     'jest': 'jest',
     'less': 'less',
@@ -16,7 +15,7 @@ const packageJSON = JSON.stringify({
   },
 });
 
-describe('generator-rvm:component', () => {
+describe('generator-ylem:component', () => {
   it('works with argument', () => {
     return helpers.run(path.join(__dirname, '.'))
       .inTmpDir((dirname) => {
@@ -25,18 +24,16 @@ describe('generator-rvm:component', () => {
       .withArguments([ 'foo-bar' ])
       .withOptions({
         component: true,
-        viewmodel: true,
+        store: true,
         styled: true,
       })
       .then(() => {
         assert.file([
-          'src/components/foo-bar/foo-bar.component.js',
-          'src/components/foo-bar/foo-bar.component.stories.js',
-          'src/components/foo-bar/foo-bar.component.test.js',
+          'src/components/foo-bar/foo-bar.view.js',
+          'src/components/foo-bar/foo-bar.view.test.js',
           'src/components/foo-bar/foo-bar.styled.js',
-          'src/components/foo-bar/foo-bar.styled.stories.js',
-          'src/components/foo-bar/foo-bar.viewmodel.js',
-          'src/components/foo-bar/foo-bar.viewmodel.test.js',
+          'src/components/foo-bar/foo-bar.store.js',
+          'src/components/foo-bar/foo-bar.store.test.js',
           'src/components/foo-bar/foo-bar.less',
           'src/components/foo-bar/demo.html',
           'src/components/foo-bar/index.js',
@@ -56,18 +53,16 @@ describe('generator-rvm:component', () => {
       .withPrompts({ fileName: 'foo-bar' })
       .withOptions({
         component: true,
-        viewmodel: true,
+        store: true,
         styled: true,
       })
       .then(() => {
         assert.file([
-          'src/components/foo-bar/foo-bar.component.js',
-          'src/components/foo-bar/foo-bar.component.stories.js',
-          'src/components/foo-bar/foo-bar.component.test.js',
+          'src/components/foo-bar/foo-bar.view.js',
+          'src/components/foo-bar/foo-bar.view.test.js',
           'src/components/foo-bar/foo-bar.styled.js',
-          'src/components/foo-bar/foo-bar.styled.stories.js',
-          'src/components/foo-bar/foo-bar.viewmodel.js',
-          'src/components/foo-bar/foo-bar.viewmodel.test.js',
+          'src/components/foo-bar/foo-bar.store.js',
+          'src/components/foo-bar/foo-bar.store.test.js',
           'src/components/foo-bar/foo-bar.less',
           'src/components/foo-bar/demo.html',
           'src/components/foo-bar/index.js',

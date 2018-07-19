@@ -1,8 +1,8 @@
-import { connect } from 'react-view-model';
+import { connect } from 'ylem';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ViewModel from './app.viewmodel';
+import Store from './app.store';
 <%- dependencies.styled ? "import { Container } from './app.styled';\n" : "" -%>
 
 export class App extends Component {
@@ -26,4 +26,4 @@ export class App extends Component {
   }
 }
 
-export default connect(ViewModel)(App);
+export default connect(Store)(App);
