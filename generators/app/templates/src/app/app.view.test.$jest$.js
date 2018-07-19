@@ -1,18 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+<%= renderTest ? `import { render } from '${renderTest}';` : `import ReactDOM from 'react-dom';` %>
 
-import { App } from './app.view';
+import App from './app.view';
 
 describe('App', () => {
 
-  it('works', () => {
+  it('works', () => {<%= renderTest ? '' : `
     const div = document.createElement('div');
-    ReactDOM.render((
+` %>
+    <%= renderTest ? 'render(' : 'ReactDOM.render((' %>
       <App
         name="Ylem"
       />
-    ), div);
-    ReactDOM.unmountComponentAtNode(div);
+    <%= renderTest ? ');' : `), div);
+
+    ReactDOM.unmountComponentAtNode(div);` %>
   });
 
 });
