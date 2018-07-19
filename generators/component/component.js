@@ -6,12 +6,12 @@ const getFiles = require('../../lib/files');
 const allFiles = [
   { file: '__FILENAME__.less', requirements: [ 'less' ] },
   { file: '__FILENAME__.store.js', requirements: [ 'makeStore' ] },
-  { file: '__FILENAME__.store.test.jest.js', requirements: [ 'makeStore', 'jest' ] },
-  { file: '__FILENAME__.store.test.qunit.js', requirements: [ 'makeStore', 'qunit' ] },
+  { file: '__FILENAME__.store.test.$jest$.js', requirements: [ 'makeStore', 'jest' ] },
+  { file: '__FILENAME__.store.test.$qunit$.js', requirements: [ 'makeStore', 'qunit' ] },
   { file: '__FILENAME__.styled.js', requirements: [ 'makeStyled', 'styled' ] },
   { file: '__FILENAME__.view.js', requirements: [ 'makeView' ] },
-  { file: '__FILENAME__.view.test.jest.js', requirements: [ 'makeView', 'jest' ] },
-  { file: '__FILENAME__.view.test.qunit.js', requirements: [ 'makeView', 'qunit' ] },
+  { file: '__FILENAME__.view.test.$jest$.js', requirements: [ 'makeView', 'jest' ] },
+  { file: '__FILENAME__.view.test.$qunit$.js', requirements: [ 'makeView', 'qunit' ] },
   { file: 'demo.html', requirements: [ 'steal' ] },
   { file: 'index.connected.js' },
   { file: 'index.plain.js' },
@@ -114,7 +114,10 @@ module.exports = class extends Generator {
     return [
       this.input.pathPrefix,
       this.input.fileName,
-      fileName.replace('__FILENAME__', this.input.fileName),
+      fileName
+        .replace('__FILENAME__', this.input.fileName)
+        .replace(/\.\$.+\$\./, '.')
+      ,
     ].join('/');
   }
 
