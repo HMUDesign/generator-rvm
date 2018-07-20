@@ -8,16 +8,16 @@ const allFiles = [
   { file: '__FILENAME__.store.js', requirements: [ 'makeStore' ] },
   { file: '__FILENAME__.store.test.$jest$.js', requirements: [ 'makeStore', 'jest' ] },
   { file: '__FILENAME__.store.test.$qunit$.js', requirements: [ 'makeStore', 'qunit' ] },
-  { file: '__FILENAME__.styled.js', requirements: [ 'makeStyled', 'styled' ] },
+  { file: '__FILENAME__.styled.js', requirements: [ 'makeStyled' ] },
   { file: '__FILENAME__.view.js', requirements: [ 'makeView' ] },
   { file: '__FILENAME__.view.test.$jest$.js', requirements: [ 'makeView', 'jest' ] },
   { file: '__FILENAME__.view.test.$qunit$.js', requirements: [ 'makeView', 'qunit' ] },
   { file: 'demo.html', requirements: [ 'steal' ] },
-  { file: 'index.connected.js' },
-  { file: 'index.plain.js' },
-  { file: 'index.styled.js' },
-  { file: 'README.documentjs.md', requirements: [ 'readme' ] },
-  { file: 'README.plain.md', requirements: [ 'readme' ] },
+  { file: 'index.$connected$.js', requirements: [ 'makeView', 'makeStore' ] },
+  { file: 'index.$plain$.js', requirements: [ 'makeView' ] },
+  { file: 'index.$styled$.js', requirements: [ 'makeStyled' ] },
+  { file: 'README.$documentjs$.md', requirements: [ 'documentjs' ] },
+  { file: 'README.$plain$.md' },
   { file: 'test.html', requirements: [ 'steal', 'qunit' ] },
   { file: 'test.js', requirements: [ 'steal', 'qunit' ] },
 ];
@@ -88,7 +88,7 @@ module.exports = class extends Generator {
       },
     ].filter(Boolean)).then(({ fileName, description, makeView, makeStore, makeStyled }) => {
       fileName = this.options.fileName || fileName;
-      const location = this.contextRoot.replace(this.destinationRoot(), '').slice(1);
+      const location = this.options.location || this.contextRoot.replace(this.destinationRoot(), '').slice(1);
 
       this.input = {
         fileName: fileName,

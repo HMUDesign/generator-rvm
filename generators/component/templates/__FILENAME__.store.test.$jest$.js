@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 import <%= componentName %>Store from './<%= fileName %>.store';
 
 describe('<%= displayPrefix %>/<%= componentName %> Store', () => {
@@ -5,11 +7,11 @@ describe('<%= displayPrefix %>/<%= componentName %> Store', () => {
   it('provides name', async () => {
     const store = new <%= componentName %>Store({ id: '1' });
 
-    expect(store).toBeInstanceOf(<%= componentName %>Store);
-    expect(store.name).toBe('Ylem (1)');
+    expect(store).to.be.instanceOf(<%= componentName %>Store);
+    expect(store.name).to.equal('Ylem (1)');
 
     store.id = 2;
-    expect(store.name).toBe('Ylem (2)');
+    expect(store.name).to.equal('Ylem (2)');
   });
 
 });

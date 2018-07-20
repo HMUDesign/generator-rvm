@@ -54,6 +54,10 @@ module.exports = class extends Generator {
 
     const dependencies = getDependencies(pkg);
 
+    const data = Object.assign({
+      dependencies,
+    }, this.input);
+
     const files = getFiles(dependencies, allFiles);
     for (const source of files) {
       const target = this._getOutputFilename(source);
@@ -62,7 +66,7 @@ module.exports = class extends Generator {
         continue;
       }
 
-      this.fs.copyTpl(this.templatePath(source), this.destinationPath(target), this.input);
+      this.fs.copyTpl(this.templatePath(source), this.destinationPath(target), data);
     }
   }
 };

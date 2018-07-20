@@ -1,5 +1,5 @@
 import React from 'react';
-<%= renderTest ? `import { render } from '${renderTest}';` : `import ReactDOM from 'react-dom';` %>
+<%- renderTest ? `import { render } from '${renderTest}';` : `import ReactDOM from 'react-dom';` %>
 
 import <%= componentName %> from './<%= fileName %>.view';
 

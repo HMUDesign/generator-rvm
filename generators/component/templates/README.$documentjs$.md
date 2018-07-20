@@ -1,7 +1,7 @@
 @parent <%= app %>
 @module {React.Component} <%= displayPrefix %>/<%= componentName %> <<%= componentName %> />
 
-<%= description || `A short description of the <%= componentName %> component.` %>
+<%= description || `A short description of the ${componentName} component.` %>
 
 @signature `<<%= componentName %> />`
 

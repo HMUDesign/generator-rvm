@@ -1,4 +1,4 @@
-import QUnit from '<%= dependencies.steal ? 'steal-qunit' : 'qunit' %>';
+import QUnit from '<%= dependencies.steal ? "steal-qunit" : "qunit" %>';
 
 import <%= componentName %>Store from './<%= fileName %>.store';
 

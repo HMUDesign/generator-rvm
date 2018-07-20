@@ -1,3 +1,4 @@
+const path = require('path');
 const Generator = require('yeoman-generator');
 const yosay = require('yosay');
 const getDependencies = require('../../lib/dependencies');
@@ -5,28 +6,26 @@ const getFiles = require('../../lib/files');
 
 const allFiles = [
   { file: 'src/index.js' },
-  { file: 'src/theme.js', requirements: [ 'styled' ] },
-  { file: 'src/app/README.md' },
-  { file: 'src/app/index.js' },
-  { file: 'src/app/app.view.js' },
-  { file: 'src/app/app.view.test.$jest$.js', requirements: [ 'jest' ] },
-  { file: 'src/app/app.view.test.$qunit$.js', requirements: [ 'qunit' ] },
-  { file: 'src/app/app.styled.js', requirements: [ 'styled' ] },
-  { file: 'src/app/app.store.js' },
-  { file: 'src/app/app.store.test.$jest$.js', requirements: [ 'jest' ] },
-  { file: 'src/app/app.store.test.$qunit$.js', requirements: [ 'qunit' ] },
+  { file: 'src/theme.js', requirements: [ 'makeStyled' ] },
 ];
 
 module.exports = class extends Generator {
   _getOutputFilename(fileName) {
     return [
-      this.input.pathPrefix,
-      this.input.fileName,
       fileName
-        .replace('__FILENAME__', this.input.fileName)
         .replace(/\.\$.+\$\./, '.')
       ,
     ].join('/');
+  }
+
+  initializing() {
+    this.composeWith(require.resolve('../component'), {
+      location: path.join(this.contextRoot, 'src'),
+      fileName: 'app',
+      component: true,
+      viewmodel: true,
+      styled: true,
+    });
   }
 
   writing() {
@@ -38,8 +37,11 @@ module.exports = class extends Generator {
     const pkg = this.fs.readJSON(this.destinationPath('package.json'));
 
     const dependencies = getDependencies(pkg);
-    const files = getFiles(dependencies, allFiles);
+    dependencies.makeView = true;
+    dependencies.makeStore = true;
+    dependencies.makeStyled = true;
 
+    const files = getFiles(dependencies, allFiles);
     for (const source of files) {
       const target = this._getOutputFilename(source);
 
