@@ -5,7 +5,8 @@ const getFiles = require('../../lib/files');
 
 const allFiles = [
   { file: '__FILENAME__.js' },
-  { file: '__FILENAME__.test.js', requirements: [ 'jest' ] },
+  { file: '__FILENAME__.test.$jest$.js', requirements: [ 'jest' ] },
+  { file: '__FILENAME__.test.$qunit$.js', requirements: [ 'qunit' ] },
 ];
 
 module.exports = class extends Generator {
@@ -38,10 +39,13 @@ module.exports = class extends Generator {
     });
   }
 
-  _getOutputFilename(filename) {
+  _getOutputFilename(fileName) {
     return [
       'src/models',
-      filename.replace('__FILENAME__', this.input.fileName),
+      fileName
+        .replace('__FILENAME__', this.input.fileName)
+        .replace(/\.\$.+\$\./, '.')
+      ,
     ].join('/');
   }
 
@@ -49,6 +53,10 @@ module.exports = class extends Generator {
     const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
     const dependencies = getDependencies(pkg);
+
+    const data = Object.assign({
+      dependencies,
+    }, this.input);
 
     const files = getFiles(dependencies, allFiles);
     for (const source of files) {
@@ -58,7 +66,7 @@ module.exports = class extends Generator {
         continue;
       }
 
-      this.fs.copyTpl(this.templatePath(source), this.destinationPath(target), this.input);
+      this.fs.copyTpl(this.templatePath(source), this.destinationPath(target), data);
     }
   }
 };

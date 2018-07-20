@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 <%- dependencies.router ? "import { BrowserRouter } from 'react-router-dom';\n" : "" -%>
 <%- dependencies.styled ? "import { ThemeProvider } from 'styled-components';\n" : "" -%>
-<%- dependencies.styled ? "import theme from './themes/primary';\n" : "" -%>
+<%- dependencies.styled ? "import theme from './theme';\n" : "" -%>
 
 import App from './app';
 <% const first = dependencies.router ? "  " : ""; -%>
