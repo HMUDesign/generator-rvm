@@ -1,7 +1,13 @@
 import { Object as ObserveObject } from 'can-observe';
 
-export default class <%= modelName %> extends ObserveObject {
+export class <%= modelName %> extends ObserveObject {
   get name() {
-    return `Ylem (${this.id})`;
+    return `<%= modelName %> (${this.id})`;
+  }
+}
+
+export class <%= modelName %>List extends ObserveObject {
+  get name() {
+    return `<%= modelName %>List (${this.id})`;
   }
 }

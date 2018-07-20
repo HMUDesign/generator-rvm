@@ -6,7 +6,7 @@ import <%= componentName %> from './<%= fileName %>.view';
 
 QUnit.module('App', () => {
 
-  QUnit.test('works', (assert) => {<%= renderTest ? '' : `
+  QUnit.test('works', (assert) => {<%- renderTest ? '' : `
     const div = document.createElement('div');
 ` %>
     <%= renderTest ? 'render(' : 'ReactDOM.render((' %>

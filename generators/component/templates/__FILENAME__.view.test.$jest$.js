@@ -5,7 +5,7 @@ import <%= componentName %> from './<%= fileName %>.view';
 
 describe('<%= displayPrefix %>/<%= componentName %>', () => {
 
-  it('works', () => {<%= renderTest ? '' : `
+  it('works', () => {<%- renderTest ? '' : `
     const div = document.createElement('div');
 ` %>
     <%= renderTest ? 'render(' : 'ReactDOM.render((' %>

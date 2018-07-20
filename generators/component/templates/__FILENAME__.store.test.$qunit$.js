@@ -8,10 +8,10 @@ QUnit.module('<%= displayPrefix %>/<%= componentName %> Store', () => {
     const store = new <%= componentName %>Store({ id: '1' });
 
     assert.ok(store instanceof <%= componentName %>Store);
-    assert.ok(store.name === 'Ylem (1)');
+    assert.ok(store.name === '<%= componentName %> (1)');
 
     store.id = 2;
-    assert.ok(store.name === 'Ylem (2)');
+    assert.ok(store.name === '<%= componentName %> (2)');
   });
 
 });
