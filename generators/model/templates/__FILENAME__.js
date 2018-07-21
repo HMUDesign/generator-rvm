@@ -1,4 +1,6 @@
-import { Object as ObserveObject } from 'can-observe';
+<%- dependencies.canFixture ? `import './fixtures/${fileName}';\n` : '' -%>
+import { Object as ObserveObject } from 'ylem';
+<%- dependencies.canRestModel ? `import canRestModel from 'can-rest-model';\n` : '' -%>
 
 export class <%= modelName %> extends ObserveObject {
   get name() {
@@ -11,3 +13,10 @@ export class <%= modelName %>List extends ObserveObject {
     return `<%= modelName %>List (${this.id})`;
   }
 }
+<%- dependencies.canRestModel ? `
+canRestModel({
+  Map: ${modelName},
+  List: ${modelName}List,
+  url: '/api/${fileName}/{id}',
+});
+` : '' -%>

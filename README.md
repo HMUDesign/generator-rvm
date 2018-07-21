@@ -1,5 +1,5 @@
 # generator-ylem [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> React projects based on create-react-app, with ReactViewModel, Styled Components, Storybook, and tested with Jest.
+> Update React projects to include Ylem. Supports styles with Styled Components and tests with Jest or QUnit.
 
 ## Installation
 

@@ -7,6 +7,7 @@ const allFiles = [
   { file: '__FILENAME__.js' },
   { file: '__FILENAME__.test.$jest$.js', requirements: [ 'jest' ] },
   { file: '__FILENAME__.test.$qunit$.js', requirements: [ 'qunit' ] },
+  { file: 'fixtures/__FILENAME__.js', requirements: [ 'canFixture' ] },
 ];
 
 module.exports = class extends Generator {
