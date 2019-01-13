@@ -1,4 +1,4 @@
-import { Object as ObserveObject } from 'ylem';
+import { ObserveObject } from 'ylem';
 import PropTypes from 'prop-types';
 
 export default class <%= componentName %>Store extends ObserveObject {

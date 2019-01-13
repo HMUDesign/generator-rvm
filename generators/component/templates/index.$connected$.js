@@ -1,7 +1,7 @@
 import { connect } from 'ylem';
 
+import View from './<%= fileName %>.view';
 import Store from './<%= fileName %>.store';
-import Component from './<%= fileName %>.view';
-export default connect(Store)(Component);
+export default connect(Store)(View);
 
 export * from './<%= fileName %>.view';

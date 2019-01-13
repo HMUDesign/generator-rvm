@@ -1,5 +1,5 @@
 <%- dependencies.canFixture ? `import './fixtures/${fileName}';\n` : '' -%>
-import { Object as ObserveObject } from 'ylem';
+import { ObserveObject } from 'ylem';
 <%- dependencies.canRestModel ? `import canRestModel from 'can-rest-model';\n` : '' -%>
 
 export class <%= modelName %> extends ObserveObject {

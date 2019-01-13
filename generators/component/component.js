@@ -107,10 +107,16 @@ module.exports = class extends Generator {
           : 'Components'
         ,
       };
+
+      this.input.onlyView = this.input.makeView && !this.input.makeStore && !this.input.makeStyled;
     });
   }
 
   _getOutputFilename(fileName) {
+    if (this.input.onlyView) {
+      fileName = fileName.replace('.view.', '.');
+    }
+
     return [
       this.input.pathPrefix,
       this.input.fileName,
